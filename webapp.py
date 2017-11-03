@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def render_main():
-    o = get_state_options
-    ff = get_fun_fact
+    o = get_state_options()
+    ff = get_fun_fact()
     return render_template('index.html', options = o, funFact = ff)
 
 def get_state_options():
