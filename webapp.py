@@ -7,14 +7,19 @@ app = Flask(__name__)
 
 @app.route("/")
 def render_main():
-    o = "blah, do sumthing w/ this make sure to include the stuff"
-    ff = "fun funFact"
+    o = get_state_options
+    ff = get_fun_fact
     return render_template('index.html', options = o, funFact = ff)
 
 def get_state_options():
     options = ""
-
+    s = "cars"
+    options += Markup("<option value=\"" + s + "\">" + s + "</option>")
     return options
+
+def get_fun_fact():
+    ff = "random fun funFact"
+    return ff
 
 if __name__=="__main__":
     app.run(debug=False, port=54321)
