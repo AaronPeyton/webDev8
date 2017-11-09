@@ -14,35 +14,25 @@ if __name__=="__main__":
 
 @app.route("/")
 def render_main():
-    o = get_state_options()
-    ff = get_fun_fact()
-    return render_template('index.html', options = o, funFact = ff)
+    with open('county_demographics.json') as demographics_data:
+        counties = json.load(demographics_data)
+    if 'State' in request.args:
+        selected_state = request.args["State"]
+        return render_template('index.html', response_options = get_state_options(counties), response_population = get_RSpC(counties, selected_state), response_state = selected_state)
+    return render_template('index.html', response_options = get_state_options(counties))
 
-def get_state_options():
-    states = get_states(counties)
-    for s in states:
-        options += Markup("<option value=\"" + s + "\">" + s + "</option>")
+def get_state_options(counties):
+    states = []
+    options = ""
+    for c in counties:
+        if c["State"] not in states:
+            states.append(c["State"])
+            options += Markup("<option value=\"" + c["State"] + "\">" + c["State"] + "</option>")
     return options
 
-def get_fun_fact(state):
-    ff = "random fun funFact"
-    return ff
-
-def get_states(counties):
-    """Return a state that has the most counties."""
-    #Make a dictionary that has a key for each state and the values keep track of the number of counties in each state
-    #Find the state in the dictionary with the most counties
-    #Return the state with the most counties
-    states = {}
-
-    ## dictionarying states and counties
+def get_RSpC(counties, selected_state):
+    RSpC = 0
     for c in counties:
-        # print c["State"], c["County"]
-        state = str(c["State"])
-        county = str(c["County"])
-
-        if state in states:
-            states[state].append(county)
-        else:
-            states[state] = [county]
-        return states.sort()
+        if c["State"] == selected_state:
+            RSpC += c["Sales"]["Retail Sales per Capita"]
+    return str(RSpC)
