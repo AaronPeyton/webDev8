@@ -31,7 +31,7 @@ def get_state_options(counties):
     return options
 
 def get_RS(counties, selected_state):
-    RSpC = 0
+    RS = 0
     for c in counties:
         if c["State"] == selected_state:
             RS += c["Sales"]["Retail Sales"]
