@@ -18,7 +18,7 @@ def render_main():
         counties = json.load(demographics_data)
     if 'State' in request.args:
         selected_state = request.args["State"]
-        return render_template('index.html', response_options = get_state_options(counties), response_population = get_RSpC(counties, selected_state), response_state = selected_state)
+        return render_template('index.html', response_options = get_state_options(counties), response_population = get_RS(counties, selected_state), response_state = selected_state)
     return render_template('index.html', response_options = get_state_options(counties))
 
 def get_state_options(counties):
@@ -30,9 +30,9 @@ def get_state_options(counties):
             options += Markup("<option value=\"" + c["State"] + "\">" + c["State"] + "</option>")
     return options
 
-def get_RSpC(counties, selected_state):
+def get_RS(counties, selected_state):
     RSpC = 0
     for c in counties:
         if c["State"] == selected_state:
-            RSpC += c["Sales"]["Retail Sales per Capita"]
-    return str(RSpC)
+            RS += c["Sales"]["Retail Sales"]
+    return str(RS)
