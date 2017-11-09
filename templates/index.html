@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>title</title>
-</head>
-
-<body>
-
-    <select name="cars">
-     {{options}}
-    </select>
-
-    <p>{{funFact}}</p>
-</body>
+    <head>
+        <title> County Demographics Lab</title>
+    </head>
+    <body>
+        <form action=".">
+          <select name="State">
+            {{ response_options }}
+          </select>
+          <br><br>
+          <input type="submit">
+      </form>
+      {% if response_state and response_population is defined %}
+        <p> {{ response_state }} has a population of {{ response_population }} </p>
+      {% endif %}
+    </body>
+</html>
