@@ -18,7 +18,7 @@ def render_main():
         counties = json.load(demographics_data)
     if 'State' in request.args:
         selected_state = request.args["State"]
-        return render_template('index.html', response_options = get_state_options(counties), response_population = get_RS(counties, selected_state), response_state = selected_state)
+        return render_template('index.html', response_options = get_state_options(counties), response_sale = get_RS(counties, selected_state), response_state = selected_state)
     return render_template('index.html', response_options = get_state_options(counties))
 
 def get_state_options(counties):
