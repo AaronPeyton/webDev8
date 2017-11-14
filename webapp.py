@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, Markup, flash
 import os, json
 
-with open('county_demographics.json') as demographics_data:
-    counties = json.load(demographics_data)
-
 app = Flask(__name__)
 #__name__ = "__main__" if this is the file that was run.
 #Otherwise, it is the name of the file (ex. webapp)
